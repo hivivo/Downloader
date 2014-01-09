@@ -45,7 +45,18 @@ bool HttpClient::isRequesting()
     return m_requesting;
 }
 
-bool HttpClient::download(string url, string filepath)
+bool HttpClient::download(string url, string folder)
+{
+    // try guess filename from the url
+    auto pos = find(url.rbegin(), url.rend(), '/');
+    string name = url.substr(distance(pos, url.rend()));
+    
+    if (folder.back() != kPathSeparator) folder += kPathSeparator;
+    
+    return downloadAs(url, folder + name);
+}
+
+bool HttpClient::downloadAs(string url, string filepath)
 {
     // set url
     curl_easy_setopt(m_curl, CURLOPT_URL, url.c_str());

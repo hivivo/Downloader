@@ -22,6 +22,10 @@
 #include <functional>
 using namespace std;
 
+#pragma mark - Useful Macros
+
+#define kPathSeparator  '/'
+
 #pragma mark - Macro Swiches
 
 #define DEBUG_MODE

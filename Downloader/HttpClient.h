@@ -26,7 +26,14 @@ public:
     
     bool get(string url, HttpClientCallback callback);
     bool post(string url, string data, HttpClientCallback callback);
-    bool download(string url, string filepath);
+    /**
+     Download url into folder
+     */
+    bool download(string url, string folder);
+    /**
+     Download url and rename it to satisfy filepath
+     */
+    bool downloadAs(string url, string filepath);
     
     bool isRequesting();
     
