@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4726E2EE187E236A00BB6AC7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4726E2ED187E236A00BB6AC7 /* main.cpp */; };
-		4726E2F0187E236A00BB6AC7 /* Downloader.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4726E2EF187E236A00BB6AC7 /* Downloader.1 */; };
+		4726E2F8187E256500BB6AC7 /* Downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4726E2F6187E256500BB6AC7 /* Downloader.cpp */; };
+		4726E2FB187E266700BB6AC7 /* HttpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4726E2F9187E266700BB6AC7 /* HttpClient.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -18,7 +19,6 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				4726E2F0187E236A00BB6AC7 /* Downloader.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -27,7 +27,11 @@
 /* Begin PBXFileReference section */
 		4726E2EA187E236A00BB6AC7 /* Downloader */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Downloader; sourceTree = BUILT_PRODUCTS_DIR; };
 		4726E2ED187E236A00BB6AC7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		4726E2EF187E236A00BB6AC7 /* Downloader.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Downloader.1; sourceTree = "<group>"; };
+		4726E2F6187E256500BB6AC7 /* Downloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Downloader.cpp; sourceTree = "<group>"; };
+		4726E2F7187E256500BB6AC7 /* Downloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Downloader.h; sourceTree = "<group>"; };
+		4726E2F9187E266700BB6AC7 /* HttpClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpClient.cpp; sourceTree = "<group>"; };
+		4726E2FA187E266700BB6AC7 /* HttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpClient.h; sourceTree = "<group>"; };
+		4726E2FC187E268500BB6AC7 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +65,11 @@
 			isa = PBXGroup;
 			children = (
 				4726E2ED187E236A00BB6AC7 /* main.cpp */,
-				4726E2EF187E236A00BB6AC7 /* Downloader.1 */,
+				4726E2F6187E256500BB6AC7 /* Downloader.cpp */,
+				4726E2F7187E256500BB6AC7 /* Downloader.h */,
+				4726E2F9187E266700BB6AC7 /* HttpClient.cpp */,
+				4726E2FA187E266700BB6AC7 /* HttpClient.h */,
+				4726E2FC187E268500BB6AC7 /* Common.h */,
 			);
 			path = Downloader;
 			sourceTree = "<group>";
@@ -117,7 +125,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4726E2F8187E256500BB6AC7 /* Downloader.cpp in Sources */,
 				4726E2EE187E236A00BB6AC7 /* main.cpp in Sources */,
+				4726E2FB187E266700BB6AC7 /* HttpClient.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
