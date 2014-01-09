@@ -22,4 +22,8 @@
 #include <functional>
 using namespace std;
 
+#pragma mark - Macro Swiches
+
+#define DEBUG_MODE
+
 #endif
