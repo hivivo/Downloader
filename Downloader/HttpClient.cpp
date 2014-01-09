@@ -8,25 +8,11 @@
 
 #include "HttpClient.h"
 
+#pragma mark - Constructor & Destructor
+
 HttpClient::HttpClient() : m_requesting(false)
 {
-    // init global
-    static bool globalInitialized = false;
-    if (!globalInitialized)
-    {
-        curl_global_init(CURL_GLOBAL_ALL);
-        globalInitialized = true;
-    }
-    
-    // init current session
-    m_curl = curl_easy_init();
-    
-//    curl_easy_setopt(m_curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);	// support basic, digest, and NTLM authentication
-    // try not to use signals
-    curl_easy_setopt(m_curl, CURLOPT_NOSIGNAL, 1L);
-    
-    // set a default user agent
-    curl_easy_setopt(m_curl, CURLOPT_USERAGENT, curl_version());
+    initCURL();
 }
 
 HttpClient::HttpClient(string agent) : HttpClient()
@@ -40,9 +26,29 @@ HttpClient::~HttpClient()
     curl_easy_cleanup(m_curl);
 }
 
+#pragma mark - Public Methods
+
 bool HttpClient::isRequesting()
 {
     return m_requesting;
+}
+
+string HttpClient::get(string url)
+{
+    // set url
+    curl_easy_setopt(m_curl, CURLOPT_URL, url.c_str());
+    
+    // forward all data to this func
+    curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, &HttpClient::writeToString);
+    
+    string response;
+    
+    curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, &response);
+    
+    // do it
+    curl_easy_perform(m_curl);
+    
+    return response;
 }
 
 bool HttpClient::download(string url, string folder)
@@ -61,16 +67,8 @@ bool HttpClient::downloadAs(string url, string filepath)
     // set url
     curl_easy_setopt(m_curl, CURLOPT_URL, url.c_str());
     
-#ifdef DEBUG_MODE
-    // Switch on full protocol/debug output while testing
-    curl_easy_setopt(m_curl, CURLOPT_VERBOSE, 1L);
-    
-    // disable progress meter, set to 0L to enable and disable debug output
-    curl_easy_setopt(m_curl, CURLOPT_NOPROGRESS, 1L);
-#endif
-    
     // forward all data to this func
-    curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, &HttpClient::onReceived);
+    curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, &HttpClient::writeToFile);
     
     // open the file
     FILE * file = fopen(filepath.c_str(), "wb");
@@ -90,7 +88,47 @@ bool HttpClient::downloadAs(string url, string filepath)
     return false;
 }
 
-size_t HttpClient::onReceived(void *ptr, size_t size, size_t nmemb, void *stream)
+#pragma mark - Data Receiver
+
+size_t HttpClient::writeToFile(void * ptr, size_t size, size_t nmemb, FILE * stream)
 {
-    return fwrite(ptr, size, nmemb, (FILE*) stream);
+    return fwrite(ptr, size, nmemb, stream);
+}
+
+size_t HttpClient::writeToString(char * ptr, size_t size, size_t nmemb, string * sp)
+{
+    size_t len = size * nmemb;
+    sp->insert(sp->end(), ptr, ptr + len);
+    return len;
+}
+
+#pragma mark - Private Helper
+
+void HttpClient::initCURL()
+{
+    // init global
+    static bool globalInitialized = false;
+    if (!globalInitialized)
+    {
+        curl_global_init(CURL_GLOBAL_ALL);
+        globalInitialized = true;
+    }
+    
+    // init current session
+    m_curl = curl_easy_init();
+    
+    //    curl_easy_setopt(m_curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);	// support basic, digest, and NTLM authentication
+    // try not to use signals
+    curl_easy_setopt(m_curl, CURLOPT_NOSIGNAL, 1L);
+    
+    // set a default user agent
+    curl_easy_setopt(m_curl, CURLOPT_USERAGENT, curl_version());
+    
+#ifdef DEBUG_MODE
+    // Switch on full protocol/debug output while testing
+    curl_easy_setopt(m_curl, CURLOPT_VERBOSE, 1L);
+    
+    // disable progress meter, set to 0L to enable and disable debug output
+    curl_easy_setopt(m_curl, CURLOPT_NOPROGRESS, 1L);
+#endif
 }

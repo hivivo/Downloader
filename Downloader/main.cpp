@@ -12,7 +12,9 @@
 int main(int argc, const char * argv[])
 {
     HttpClient client;
-    client.downloadAs("http://coltsauthority.com/images/stories/merry-christmas4.jpg", "bbb.jpg");
+//    client.downloadAs("http://coltsauthority.com/images/stories/merry-christmas4.jpg", "bbb.jpg");
+    
+    cout << client.get("http://www.baidu.com");
 
     return 0;
 }

@@ -12,7 +12,7 @@
 #include "Common.h"
 #include <curl/curl.h>
 
-typedef function<void(string)> HttpClientCallback;
+typedef function<void(string)> HttpClientCallback; // TODO: remove it, for useless
 
 /**
  Simple HTTP Client. Only one request at the same time.
@@ -24,7 +24,7 @@ public:
     HttpClient(string agent);
     virtual ~HttpClient();
     
-    bool get(string url, HttpClientCallback callback);
+    string get(string url);
     bool post(string url, string data, HttpClientCallback callback);
     /**
      Download url into folder
@@ -39,7 +39,10 @@ public:
     
 private:
     // FIXME: why static here?
-    static size_t onReceived(void *ptr, size_t size, size_t nmemb, void * stream);
+    static size_t writeToFile(void * ptr, size_t size, size_t nmemb, FILE * stream);
+    static size_t writeToString(char * ptr, size_t size, size_t nmemb, string * sp);
+    
+    void initCURL();
     
 private:
     HttpClientCallback m_callback;
