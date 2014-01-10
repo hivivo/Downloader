@@ -21,11 +21,7 @@ public:
      Download a file from url.
      @return: task ID. If failed, return -1
      */
-    int download(string url);
-    
-#ifdef DEBUG_MODE
-    void wait();
-#endif
+    int download(string url, string folder);
     
 protected:
     /**
@@ -33,20 +29,25 @@ protected:
      */
     struct Task
     {
+        int id;
         string url;
-        string filepath;
+        string folder;
+        Task() : id(0) {}
     };
     
 private:
     Downloader(); // for singleton
-    static void * runTask(void * param); // for thread start
-    void runTask(Task task); // for download a task
-    
+    static void * runNextTask(void*); // for thread start
+    void runNextTask(); // for download the next task in the waiting list
     
 private:
     queue<Task> m_waiting;
-    unordered_map<int, pthread_t> m_running;
+    static pthread_mutex_t s_waiting;
     
+    unordered_map<int, pthread_t> m_running;
+    static pthread_mutex_t s_running;
+    
+    int m_lastId;
 };
 
 #endif /* defined(__Downloader__Downloader__) */
