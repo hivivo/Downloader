@@ -47,6 +47,9 @@ private:
     unordered_map<int, pthread_t> m_running;
     static pthread_mutex_t s_running;
     
+    int m_threadCount;
+    static pthread_mutex_t s_threadCount;
+    
     int m_lastId;
 };
 

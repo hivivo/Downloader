@@ -26,7 +26,7 @@ using namespace std;
 #pragma mark - Useful Macros
 
 #define kPathSeparator      '/'
-#define kMaxDownloadThreads 3
+#define kMaxDownloadThreads 5
 
 #pragma mark - Macro Swiches
 

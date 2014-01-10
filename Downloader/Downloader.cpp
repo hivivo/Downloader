@@ -13,6 +13,7 @@
 
 pthread_mutex_t Downloader::s_waiting;
 pthread_mutex_t Downloader::s_running;
+pthread_mutex_t Downloader::s_threadCount;
 
 Downloader * Downloader::instance()
 {
@@ -26,7 +27,7 @@ Downloader * Downloader::instance()
     return s_instance;
 }
 
-Downloader::Downloader() : m_lastId(0)
+Downloader::Downloader() : m_lastId(0), m_threadCount(0)
 {
     
 }
@@ -50,17 +51,24 @@ int Downloader::download(string url, string folder)
     m_waiting.push(task);
     pthread_mutex_unlock(&s_waiting);
     
-    // TODO: check thread count
+    // check thread count
+    bool canCreateThread = false;
     
-    // create new thread to execute the task
-    pthread_t thread;
-    pthread_create(&thread, NULL, &Downloader::runNextTask, NULL);
-    pthread_detach(thread);
+    pthread_mutex_lock(&s_threadCount);
+    if (m_threadCount < kMaxDownloadThreads)
+    {
+        canCreateThread = true;
+        ++m_threadCount;
+    }
+    pthread_mutex_unlock(&s_threadCount);
     
-    // remember it
-    pthread_mutex_lock(&s_running);
-    m_running[task.id] = thread;
-    pthread_mutex_unlock(&s_running);
+    if (canCreateThread)
+    {
+        // create new thread to execute the task
+        pthread_t thread;
+        pthread_create(&thread, NULL, &Downloader::runNextTask, NULL);
+        pthread_detach(thread);
+    }
     
     return task.id;
 }
@@ -90,6 +98,11 @@ void Downloader::runNextTask()
     
     if (task.id == 0) return;
     
+    // remember it
+    pthread_mutex_lock(&s_running);
+    m_running[task.id] = pthread_self();
+    pthread_mutex_unlock(&s_running);
+    
     // use httpclient to download it
     HttpClient client;
     client.download(task.url, task.folder);
@@ -98,4 +111,12 @@ void Downloader::runNextTask()
     pthread_mutex_lock(&s_running);
     m_running.erase(task.id);
     pthread_mutex_unlock(&s_running);
+    
+    // try run next
+    runNextTask();
+    
+    // at last, minus thread count
+    pthread_mutex_lock(&s_threadCount);
+    --m_threadCount;
+    pthread_mutex_unlock(&s_threadCount);
 }
