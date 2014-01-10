@@ -14,7 +14,7 @@
 class Downloader
 {
 public:
-    Downloader();
+    static Downloader * instance();
     virtual ~Downloader();
     
     /**
@@ -22,6 +22,30 @@ public:
      @return: task ID. If failed, return -1
      */
     int download(string url);
+    
+#ifdef DEBUG_MODE
+    void wait();
+#endif
+    
+protected:
+    /**
+     Description of a download task
+     */
+    struct Task
+    {
+        string url;
+        string filepath;
+    };
+    
+private:
+    Downloader(); // for singleton
+    static void * runTask(void * param); // for thread start
+    void runTask(Task task); // for download a task
+    
+    
+private:
+    queue<Task> m_waiting;
+    unordered_map<int, pthread_t> m_running;
     
 };
 

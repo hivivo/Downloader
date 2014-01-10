@@ -7,15 +7,12 @@
 //
 
 #include "Common.h"
-#include "HttpClient.h"
+#include "Downloader.h"
 
 int main(int argc, const char * argv[])
 {
-    HttpClient client;
-//    client.downloadAs("http://coltsauthority.com/images/stories/merry-christmas4.jpg", "bbb.jpg");
-    
-    cout << client.get("http://www.baidu.com");
-
+    Downloader::instance()->download("http://coltsauthority.com/images/stories/merry-christmas4.jpg");
+    Downloader::instance()->wait();
     return 0;
 }
 

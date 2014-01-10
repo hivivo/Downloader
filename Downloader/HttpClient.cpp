@@ -10,7 +10,7 @@
 
 #pragma mark - Constructor & Destructor
 
-HttpClient::HttpClient() : m_requesting(false)
+HttpClient::HttpClient()
 {
     initCURL();
 }
@@ -27,11 +27,6 @@ HttpClient::~HttpClient()
 }
 
 #pragma mark - Public Methods
-
-bool HttpClient::isRequesting()
-{
-    return m_requesting;
-}
 
 string HttpClient::get(string url)
 {

@@ -35,10 +35,7 @@ public:
      */
     bool downloadAs(string url, string filepath);
     
-    bool isRequesting();
-    
 private:
-    // FIXME: why static here?
     static size_t writeToFile(void * ptr, size_t size, size_t nmemb, FILE * stream);
     static size_t writeToString(char * ptr, size_t size, size_t nmemb, string * sp);
     
@@ -47,7 +44,6 @@ private:
 private:
     HttpClientCallback m_callback;
     CURL * m_curl;
-    bool m_requesting;
 };
 
 #endif /* defined(__Downloader__HttpClient__) */

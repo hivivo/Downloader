@@ -16,6 +16,7 @@
 #include <vector>
 #include <map>
 #include <set>
+#include <queue>
 #include <unordered_map>
 #include <unordered_set>
 #include <algorithm>
@@ -24,7 +25,8 @@ using namespace std;
 
 #pragma mark - Useful Macros
 
-#define kPathSeparator  '/'
+#define kPathSeparator      '/'
+#define kMaxDownloadThreads 3
 
 #pragma mark - Macro Swiches
 
