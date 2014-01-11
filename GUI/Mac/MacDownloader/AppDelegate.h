@@ -18,4 +18,10 @@
 
 - (IBAction)saveAction:(id)sender;
 
+
+@property (weak) IBOutlet NSTextField *urlField;
+
+- (IBAction)download:(id)sender;
+
+
 @end

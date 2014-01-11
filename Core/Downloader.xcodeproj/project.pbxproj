@@ -10,6 +10,8 @@
 		4726E2EE187E236A00BB6AC7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4726E2ED187E236A00BB6AC7 /* main.cpp */; };
 		4726E2F8187E256500BB6AC7 /* Downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4726E2F6187E256500BB6AC7 /* Downloader.cpp */; };
 		4726E2FB187E266700BB6AC7 /* HttpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4726E2F9187E266700BB6AC7 /* HttpClient.cpp */; };
+		47582EE41880C5A700DF6970 /* Downloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4726E2F6187E256500BB6AC7 /* Downloader.cpp */; };
+		47582EE51880C5A700DF6970 /* HttpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4726E2F9187E266700BB6AC7 /* HttpClient.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,10 +34,18 @@
 		4726E2F9187E266700BB6AC7 /* HttpClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HttpClient.cpp; sourceTree = "<group>"; };
 		4726E2FA187E266700BB6AC7 /* HttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpClient.h; sourceTree = "<group>"; };
 		4726E2FC187E268500BB6AC7 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		475073931880C56F0087BE1B /* libDownloaderCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDownloaderCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		4726E2E7187E236A00BB6AC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		475073901880C56F0087BE1B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -57,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				4726E2EA187E236A00BB6AC7 /* Downloader */,
+				475073931880C56F0087BE1B /* libDownloaderCore.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,6 +87,16 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		475073911880C56F0087BE1B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		4726E2E9187E236A00BB6AC7 /* Downloader */ = {
 			isa = PBXNativeTarget;
@@ -93,6 +114,23 @@
 			productName = Downloader;
 			productReference = 4726E2EA187E236A00BB6AC7 /* Downloader */;
 			productType = "com.apple.product-type.tool";
+		};
+		475073921880C56F0087BE1B /* DownloaderCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 475073941880C56F0087BE1B /* Build configuration list for PBXNativeTarget "DownloaderCore" */;
+			buildPhases = (
+				4750738F1880C56F0087BE1B /* Sources */,
+				475073901880C56F0087BE1B /* Frameworks */,
+				475073911880C56F0087BE1B /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DownloaderCore;
+			productName = DownloaderCore;
+			productReference = 475073931880C56F0087BE1B /* libDownloaderCore.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -116,6 +154,7 @@
 			projectRoot = "";
 			targets = (
 				4726E2E9187E236A00BB6AC7 /* Downloader */,
+				475073921880C56F0087BE1B /* DownloaderCore */,
 			);
 		};
 /* End PBXProject section */
@@ -128,6 +167,15 @@
 				4726E2F8187E256500BB6AC7 /* Downloader.cpp in Sources */,
 				4726E2EE187E236A00BB6AC7 /* main.cpp in Sources */,
 				4726E2FB187E266700BB6AC7 /* HttpClient.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4750738F1880C56F0087BE1B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47582EE41880C5A700DF6970 /* Downloader.cpp in Sources */,
+				47582EE51880C5A700DF6970 /* HttpClient.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,6 +266,28 @@
 			};
 			name = Release;
 		};
+		475073951880C56F0087BE1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		475073961880C56F0087BE1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -235,6 +305,15 @@
 			buildConfigurations = (
 				4726E2F4187E236A00BB6AC7 /* Debug */,
 				4726E2F5187E236A00BB6AC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		475073941880C56F0087BE1B /* Build configuration list for PBXNativeTarget "DownloaderCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				475073951880C56F0087BE1B /* Debug */,
+				475073961880C56F0087BE1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

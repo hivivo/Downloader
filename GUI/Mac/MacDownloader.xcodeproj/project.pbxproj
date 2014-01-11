@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		475073851880C01E0087BE1B /* libDownloaderCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 475073841880C0140087BE1B /* libDownloaderCore.a */; };
 		4793A7601880B613003BAD38 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4793A75F1880B613003BAD38 /* Cocoa.framework */; };
 		4793A76A1880B613003BAD38 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4793A7681880B613003BAD38 /* InfoPlist.strings */; };
 		4793A76C1880B613003BAD38 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4793A76B1880B613003BAD38 /* main.m */; };
 		4793A7701880B613003BAD38 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4793A76E1880B613003BAD38 /* Credits.rtf */; };
-		4793A7731880B613003BAD38 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4793A7721880B613003BAD38 /* AppDelegate.m */; };
+		4793A7731880B613003BAD38 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4793A7721880B613003BAD38 /* AppDelegate.mm */; };
 		4793A7761880B613003BAD38 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4793A7741880B613003BAD38 /* MainMenu.xib */; };
 		4793A7791880B613003BAD38 /* MacDownloader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4793A7771880B613003BAD38 /* MacDownloader.xcdatamodeld */; };
 		4793A77B1880B613003BAD38 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4793A77A1880B613003BAD38 /* Images.xcassets */; };
@@ -22,6 +23,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		475073741880BB5D0087BE1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 475073701880BB5D0087BE1B /* Downloader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4726E2EA187E236A00BB6AC7;
+			remoteInfo = Downloader;
+		};
+		475073801880C0140087BE1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 475073701880BB5D0087BE1B /* Downloader.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 475073921880C56F0087BE1B;
+			remoteInfo = DownloaderCore;
+		};
+		475073831880C0140087BE1B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 475073701880BB5D0087BE1B /* Downloader.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4750737C1880BFDA0087BE1B;
+			remoteInfo = DownloaderCore;
+		};
 		4793A7841880B613003BAD38 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4793A7541880B613003BAD38 /* Project object */;
@@ -32,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		475073701880BB5D0087BE1B /* Downloader.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Downloader.xcodeproj; path = ../../Core/Downloader.xcodeproj; sourceTree = "<group>"; };
 		4793A75C1880B613003BAD38 /* MacDownloader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacDownloader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4793A75F1880B613003BAD38 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4793A7621880B613003BAD38 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -43,7 +66,7 @@
 		4793A76D1880B613003BAD38 /* MacDownloader-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MacDownloader-Prefix.pch"; sourceTree = "<group>"; };
 		4793A76F1880B613003BAD38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4793A7711880B613003BAD38 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4793A7721880B613003BAD38 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4793A7721880B613003BAD38 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		4793A7751880B613003BAD38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4793A7781880B613003BAD38 /* MacDownloader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MacDownloader.xcdatamodel; sourceTree = "<group>"; };
 		4793A77A1880B613003BAD38 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -59,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				475073851880C01E0087BE1B /* libDownloaderCore.a in Frameworks */,
 				4793A7601880B613003BAD38 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,9 +99,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		475073711880BB5D0087BE1B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				475073751880BB5D0087BE1B /* Downloader */,
+				475073841880C0140087BE1B /* libDownloaderCore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		4793A7531880B613003BAD38 = {
 			isa = PBXGroup;
 			children = (
+				475073701880BB5D0087BE1B /* Downloader.xcodeproj */,
 				4793A7651880B613003BAD38 /* MacDownloader */,
 				4793A7861880B613003BAD38 /* MacDownloaderTests */,
 				4793A75E1880B613003BAD38 /* Frameworks */,
@@ -118,7 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				4793A7711880B613003BAD38 /* AppDelegate.h */,
-				4793A7721880B613003BAD38 /* AppDelegate.m */,
+				4793A7721880B613003BAD38 /* AppDelegate.mm */,
 				4793A7741880B613003BAD38 /* MainMenu.xib */,
 				4793A77A1880B613003BAD38 /* Images.xcassets */,
 				4793A7771880B613003BAD38 /* MacDownloader.xcdatamodeld */,
@@ -171,6 +205,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				475073811880C0140087BE1B /* PBXTargetDependency */,
 			);
 			name = MacDownloader;
 			productName = MacDownloader;
@@ -220,6 +255,12 @@
 			mainGroup = 4793A7531880B613003BAD38;
 			productRefGroup = 4793A75D1880B613003BAD38 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 475073711880BB5D0087BE1B /* Products */;
+					ProjectRef = 475073701880BB5D0087BE1B /* Downloader.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4793A75B1880B613003BAD38 /* MacDownloader */,
@@ -227,6 +268,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		475073751880BB5D0087BE1B /* Downloader */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = Downloader;
+			remoteRef = 475073741880BB5D0087BE1B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		475073841880C0140087BE1B /* libDownloaderCore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libDownloaderCore.a;
+			remoteRef = 475073831880C0140087BE1B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4793A75A1880B613003BAD38 /* Resources */ = {
@@ -255,7 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4793A7731880B613003BAD38 /* AppDelegate.m in Sources */,
+				4793A7731880B613003BAD38 /* AppDelegate.mm in Sources */,
 				4793A7791880B613003BAD38 /* MacDownloader.xcdatamodeld in Sources */,
 				4793A76C1880B613003BAD38 /* main.m in Sources */,
 			);
@@ -272,6 +330,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		475073811880C0140087BE1B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DownloaderCore;
+			targetProxy = 475073801880C0140087BE1B /* PBXContainerItemProxy */;
+		};
 		4793A7851880B613003BAD38 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4793A75B1880B613003BAD38 /* MacDownloader */;
@@ -391,7 +454,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacDownloader/MacDownloader-Prefix.pch";
 				INFOPLIST_FILE = "MacDownloader/MacDownloader-Info.plist";
+				OTHER_LDFLAGS = "-lcurl";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../Core/Downloader";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -404,7 +469,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MacDownloader/MacDownloader-Prefix.pch";
 				INFOPLIST_FILE = "MacDownloader/MacDownloader-Info.plist";
+				OTHER_LDFLAGS = "-lcurl";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../Core/Downloader";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -468,6 +535,7 @@
 				4793A7921880B613003BAD38 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4793A7931880B613003BAD38 /* Build configuration list for PBXNativeTarget "MacDownloaderTests" */ = {
 			isa = XCConfigurationList;
@@ -476,6 +544,7 @@
 				4793A7951880B613003BAD38 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

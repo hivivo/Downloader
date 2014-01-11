@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#include "Downloader.h"
+
 @implementation AppDelegate
 
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
@@ -180,4 +182,9 @@
     return NSTerminateNow;
 }
 
+- (IBAction)download:(id)sender
+{
+    string url = [[self.urlField stringValue] UTF8String];
+    Downloader::instance()->download(url, "./");
+}
 @end
