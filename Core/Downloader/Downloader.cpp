@@ -92,38 +92,39 @@ void * Downloader::runNextTask(void * dummy)
 // caution: this method will be called in threads!
 void Downloader::runNextTask()
 {
-    Task task;
-    
-    // try to fetch next task
-    pthread_mutex_lock(&s_waiting);
-    if (!m_waiting.empty())
+    // alwasy looking for new task to execute
+    while (true)
     {
-        task = m_waiting.front();
-        m_waiting.pop();
+        Task task;
+        
+        // try to fetch next task
+        pthread_mutex_lock(&s_waiting);
+        if (!m_waiting.empty())
+        {
+            task = m_waiting.front();
+            m_waiting.pop();
+        }
+        pthread_mutex_unlock(&s_waiting);
+        
+        if (task.id == 0) break; // no new task
+        
+        // remember it
+        pthread_mutex_lock(&s_running);
+        m_running[task.id] = pthread_self();
+        pthread_mutex_unlock(&s_running);
+        
+        // use httpclient to download it
+        HttpClient client;
+        client.download(task.url, task.folder);
+        
+        // remove me from the running list
+        pthread_mutex_lock(&s_running);
+        m_running.erase(task.id);
+        pthread_mutex_unlock(&s_running);
+        
+        // call callback. FIXME: invoke in main thread?
+        task.callback(task.url);
     }
-    pthread_mutex_unlock(&s_waiting);
-    
-    if (task.id == 0) return;
-    
-    // remember it
-    pthread_mutex_lock(&s_running);
-    m_running[task.id] = pthread_self();
-    pthread_mutex_unlock(&s_running);
-    
-    // use httpclient to download it
-    HttpClient client;
-    client.download(task.url, task.folder);
-    
-    // remove me from the running list
-    pthread_mutex_lock(&s_running);
-    m_running.erase(task.id);
-    pthread_mutex_unlock(&s_running);
-    
-    // call callback. FIXME: invoke in main thread?
-    task.callback(task.url);
-    
-    // try run next
-    runNextTask();
     
     // at last, minus thread count
     pthread_mutex_lock(&s_threadCount);
