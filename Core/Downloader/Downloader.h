@@ -11,6 +11,8 @@
 
 #include "Common.h"
 
+typedef function<void(string)> DownloaderCallback;
+
 class Downloader
 {
 public:
@@ -22,6 +24,7 @@ public:
      @return: task ID. If failed, return -1
      */
     int download(string url, string folder);
+    int download(string url, string folder, DownloaderCallback callback);
     
 protected:
     /**
@@ -32,6 +35,8 @@ protected:
         int id;
         string url;
         string folder;
+        DownloaderCallback callback;
+        
         Task() : id(0) {}
     };
     
@@ -41,6 +46,8 @@ private:
     void runNextTask(); // for download the next task in the waiting list
     
 private:
+    int m_lastId;
+    
     queue<Task> m_waiting;
     static pthread_mutex_t s_waiting;
     
@@ -50,7 +57,6 @@ private:
     int m_threadCount;
     static pthread_mutex_t s_threadCount;
     
-    int m_lastId;
 };
 
 #endif /* defined(__Downloader__Downloader__) */

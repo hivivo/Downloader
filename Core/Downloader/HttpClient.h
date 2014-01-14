@@ -12,8 +12,6 @@
 #include "Common.h"
 #include <curl/curl.h>
 
-typedef function<void(string)> HttpClientCallback; // TODO: remove it, for useless
-
 /**
  Simple HTTP Client. Only one request at the same time.
  */
@@ -25,7 +23,7 @@ public:
     virtual ~HttpClient();
     
     string get(string url);
-    bool post(string url, string data, HttpClientCallback callback);
+    bool post(string url, string data);
     /**
      Download url into folder
      */
@@ -42,7 +40,6 @@ private:
     void initCURL();
     
 private:
-    HttpClientCallback m_callback;
     CURL * m_curl;
 };
 

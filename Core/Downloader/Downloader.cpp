@@ -39,12 +39,19 @@ Downloader::~Downloader()
 
 #pragma mark - Public Methods
 
+
 int Downloader::download(string url, string folder)
+{
+    return download(url, folder, [](string){});
+}
+
+int Downloader::download(string url, string folder, DownloaderCallback callback)
 {
     Task task;
     task.id = ++m_lastId;
     task.url = url;
     task.folder = folder;
+    task.callback = callback;
     
     // put it in to the queue
     pthread_mutex_lock(&s_waiting);
@@ -111,6 +118,9 @@ void Downloader::runNextTask()
     pthread_mutex_lock(&s_running);
     m_running.erase(task.id);
     pthread_mutex_unlock(&s_running);
+    
+    // call callback. FIXME: invoke in main thread?
+    task.callback(task.url);
     
     // try run next
     runNextTask();
