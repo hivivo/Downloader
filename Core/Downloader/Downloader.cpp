@@ -39,10 +39,14 @@ Downloader::~Downloader()
 
 #pragma mark - Public Methods
 
+void Downloader::setCompletedCallback(DownloaderCallback callback)
+{
+    m_onCompleted = callback;
+}
 
 int Downloader::download(string url, string folder)
 {
-    return download(url, folder, [](string){});
+    return download(url, folder, [](int){});
 }
 
 int Downloader::download(string url, string folder, DownloaderCallback callback)
@@ -123,11 +127,13 @@ void Downloader::runNextTask()
         pthread_mutex_unlock(&s_running);
         
         // call callback. FIXME: invoke in main thread?
-        task.callback(task.url);
+        task.callback(task.id);
     }
     
     // at last, minus thread count
     pthread_mutex_lock(&s_threadCount);
-    --m_threadCount;
+    bool allDone = --m_threadCount == 0;
     pthread_mutex_unlock(&s_threadCount);
+    
+    if (allDone) m_onCompleted(0);
 }

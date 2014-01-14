@@ -11,13 +11,18 @@
 
 #include "Common.h"
 
-typedef function<void(string)> DownloaderCallback;
+typedef function<void(int)> DownloaderCallback;
 
 class Downloader
 {
 public:
     static Downloader * instance();
     virtual ~Downloader();
+    
+    /**
+     Setup a callback function. When all tasks are done, call it.
+     */
+    void setCompletedCallback(DownloaderCallback callback);
     
     /**
      Download a file from url.
@@ -56,6 +61,8 @@ private:
     
     int m_threadCount;
     static pthread_mutex_t s_threadCount;
+    
+    DownloaderCallback m_onCompleted;
     
 };
 
