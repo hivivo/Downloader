@@ -89,11 +89,11 @@ bool HttpClient::downloadAs(string url, string filepath)
         curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, file);
         
         // do it
-        curl_easy_perform(m_curl);
+        CURLcode res = curl_easy_perform(m_curl);
         
         fclose(file);
         
-        return true;
+        return res == CURLE_OK;
     }
     
     return false;
@@ -121,7 +121,7 @@ void HttpClient::initCURL()
     static bool globalInitialized = false;
     if (!globalInitialized)
     {
-        curl_global_init(CURL_GLOBAL_ALL);
+        curl_global_init(CURL_GLOBAL_ALL); // there won't be curl_global_cleanup();
         globalInitialized = true;
     }
     
