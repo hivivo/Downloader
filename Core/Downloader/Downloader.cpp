@@ -29,6 +29,7 @@
 
 pthread_mutex_t Downloader::s_waiting;
 pthread_mutex_t Downloader::s_running;
+pthread_mutex_t Downloader::s_callback;
 pthread_mutex_t Downloader::s_threadCount;
 
 Downloader * Downloader::instance()
@@ -45,14 +46,19 @@ Downloader * Downloader::instance()
 
 Downloader::Downloader() : m_lastId(0), m_threadCount(0), m_onCompleted([](int){})
 {
+    // init mutexes
     pthread_mutex_init(&s_waiting, NULL);
     pthread_mutex_init(&s_running, NULL);
+    pthread_mutex_init(&s_callback, NULL);
+    pthread_mutex_init(&s_threadCount, NULL);
 }
 
 Downloader::~Downloader()
 {
     pthread_mutex_destroy(&s_waiting);
     pthread_mutex_destroy(&s_running);
+    pthread_mutex_destroy(&s_callback);
+    pthread_mutex_destroy(&s_threadCount);
 }
 
 #pragma mark - Public Methods
@@ -145,8 +151,7 @@ void Downloader::runNextTask()
         m_running.erase(task.id);
         pthread_mutex_unlock(&s_running);
         
-        // call callback. FIXME: invoke in main thread?
-        task.callback(task.id);
+        callCallbackSafely(task.callback, task.id);
     }
     
     // at last, minus thread count
@@ -154,5 +159,12 @@ void Downloader::runNextTask()
     bool allDone = --m_threadCount == 0;
     pthread_mutex_unlock(&s_threadCount);
     
-    if (allDone) m_onCompleted(0);
+    if (allDone) callCallbackSafely(m_onCompleted, 0);
+}
+
+void Downloader::callCallbackSafely(DownloaderCallback callback, int p)
+{
+    pthread_mutex_lock(&s_callback);
+    callback(p);
+    pthread_mutex_unlock(&s_callback);
 }

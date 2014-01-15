@@ -65,6 +65,7 @@ private:
     Downloader(); // for singleton
     static void * runNextTask(void*); // for thread start
     void runNextTask(); // for download the next task in the waiting list
+    void callCallbackSafely(DownloaderCallback callback, int); // make sure the callbacks are executed one by one
     
 private:
     int m_lastId;
@@ -79,6 +80,7 @@ private:
     static pthread_mutex_t s_threadCount;
     
     DownloaderCallback m_onCompleted;
+    static pthread_mutex_t s_callback;
     
 };
 
