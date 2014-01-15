@@ -43,7 +43,7 @@ Downloader * Downloader::instance()
     return s_instance;
 }
 
-Downloader::Downloader() : m_lastId(0), m_threadCount(0)
+Downloader::Downloader() : m_lastId(0), m_threadCount(0), m_onCompleted([](int){})
 {
     pthread_mutex_init(&s_waiting, NULL);
     pthread_mutex_init(&s_running, NULL);
