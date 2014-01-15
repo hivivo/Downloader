@@ -29,12 +29,14 @@ Downloader * Downloader::instance()
 
 Downloader::Downloader() : m_lastId(0), m_threadCount(0)
 {
-    
+    pthread_mutex_init(&s_waiting, NULL);
+    pthread_mutex_init(&s_running, NULL);
 }
 
 Downloader::~Downloader()
 {
-    
+    pthread_mutex_destroy(&s_waiting);
+    pthread_mutex_destroy(&s_running);
 }
 
 #pragma mark - Public Methods
@@ -96,6 +98,8 @@ void * Downloader::runNextTask(void * dummy)
 // caution: this method will be called in threads!
 void Downloader::runNextTask()
 {
+    HttpClient client;
+    
     // alwasy looking for new task to execute
     while (true)
     {
@@ -118,7 +122,6 @@ void Downloader::runNextTask()
         pthread_mutex_unlock(&s_running);
         
         // use httpclient to download it
-        HttpClient client;
         client.download(task.url, task.folder);
         
         // remove me from the running list
