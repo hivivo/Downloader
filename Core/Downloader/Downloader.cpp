@@ -70,15 +70,26 @@ void Downloader::setCompletedCallback(DownloaderCallback callback)
 
 int Downloader::download(string url, string folder)
 {
-    return download(url, folder, [](int){});
+    return download(url, folder, "");
 }
 
 int Downloader::download(string url, string folder, DownloaderCallback callback)
+{
+    return download(url, folder, "", callback);
+}
+
+int Downloader::download(string url, string folder, string filename)
+{
+    return download(url, folder, filename, [](int){});
+}
+
+int Downloader::download(string url, string folder, string filename, DownloaderCallback callback)
 {
     Task task;
     task.id = ++m_lastId;
     task.url = url;
     task.folder = folder;
+    task.filename = filename;
     task.callback = callback;
     
     // put it in to the queue
@@ -144,7 +155,14 @@ void Downloader::runNextTask()
         pthread_mutex_unlock(&s_running);
         
         // use httpclient to download it
-        client.download(task.url, task.folder);
+        if (task.filename.empty())
+        {
+            client.download(task.url, task.folder);
+        }
+        else
+        {
+            client.downloadAs(task.url, task.folder + kPathSeparator + task.filename);
+        }
         
         // remove me from the running list
         pthread_mutex_lock(&s_running);

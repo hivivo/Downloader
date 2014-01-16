@@ -46,6 +46,8 @@ public:
      */
     int download(string url, string folder);
     int download(string url, string folder, DownloaderCallback callback);
+    int download(string url, string folder, string filename);
+    int download(string url, string folder, string filename, DownloaderCallback callback);
     
 protected:
     /**
@@ -56,6 +58,7 @@ protected:
         int id;
         string url;
         string folder;
+        string filename;
         DownloaderCallback callback;
         
         Task() : id(0) {}
