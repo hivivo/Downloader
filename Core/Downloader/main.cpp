@@ -43,7 +43,7 @@ int main(int argc, const char * argv[])
     });
     
     Downloader::instance()->download("http://upload.wikimedia.org/wikipedia/commons/6/65/View_Point_Inn_2007.05.04.jpg", "./");
-    Downloader::instance()->download("http://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Yosemite_Valley_from_Wawona_Tunnel_view,_vista_point..JPG/1280px-Yosemite_Valley_from_Wawona_Tunnel_view,_vista_point..JPG", "./");
+    Downloader::instance()->download("http://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Yosemite_Valley_from_Wawona_Tunnel_view,_vista_point..JPG/1280px-Yosemite_Valley_from_Wawona_Tunnel_view,_vista_point..JPG", "./", "yosemite.jpg");
     Downloader::instance()->download("http://th01.deviantart.net/fs70/PRE/i/2012/280/5/9/smile__by_kp_shadowsquirrel-d5fw346.jpg", "./");
     
     sleep(100);
