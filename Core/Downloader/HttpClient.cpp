@@ -81,6 +81,9 @@ bool HttpClient::downloadAs(string url, string filepath)
     // forward all data to this func
     curl_easy_setopt(m_curl, CURLOPT_WRITEFUNCTION, &HttpClient::writeToFile);
     
+    // try to write a temp file instead of the real file
+    string tmpFile = filepath + ".tmp";
+    
     // open the file
     FILE * file = fopen(filepath.c_str(), "wb");
     if (file)
@@ -92,6 +95,9 @@ bool HttpClient::downloadAs(string url, string filepath)
         CURLcode res = curl_easy_perform(m_curl);
         
         fclose(file);
+        
+        // rename it to real filename // TODO: handle exceptions (interrupt or bad request)
+        rename(tmpFile.c_str(), filepath.c_str());
         
         return res == CURLE_OK;
     }
