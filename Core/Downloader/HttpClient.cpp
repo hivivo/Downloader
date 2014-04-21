@@ -85,21 +85,29 @@ bool HttpClient::downloadAs(string url, string filepath)
     string tmpFile = filepath + ".tmp";
     
     // open the file
-    FILE * file = fopen(filepath.c_str(), "wb");
+    FILE * file = fopen(tmpFile.c_str(), "wb");
     if (file)
     {
         // write the page body to this file handle. CURLOPT_FILE is also known as CURLOPT_WRITEFILE
         curl_easy_setopt(m_curl, CURLOPT_WRITEDATA, file);
         
         // do it
-        CURLcode res = curl_easy_perform(m_curl);
+        CURLcode result = curl_easy_perform(m_curl);
         
         fclose(file);
         
-        // rename it to real filename // TODO: handle exceptions (interrupt or bad request)
-        rename(tmpFile.c_str(), filepath.c_str());
+        // get HTTP response code
+        int responseCode;
+        curl_easy_getinfo(m_curl, CURLINFO_RESPONSE_CODE, &responseCode);
         
-        return res == CURLE_OK;
+        if (result == CURLE_OK && responseCode == 200) // only assume 200 is correct
+        {
+            // rename it to real filename
+            rename(tmpFile.c_str(), filepath.c_str());
+            return true;
+        }
+        
+        remove(tmpFile.c_str()); // clean tmp file
     }
     
     return false;
